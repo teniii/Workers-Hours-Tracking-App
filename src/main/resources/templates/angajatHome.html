@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Angajat</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/JavaScript/actions.js}"></script>
+</head>
+<body>
+<h1>Welcome Angajat</h1>
+
+Angajat CNP: <span sec:authentication="name"></span>
+<br><br>
+Role: <span sec:authentication="principal.authorities"></span>
+<br><br>
+
+<div align="right" style="padding-left: 10%; padding-right: 10%">
+    <h5>The most intense week: <span th:text = "${theWeek}"></span> with <span th:text="${hoursForWeek}"></span> hours</h5>
+    <h5>The cursed project: <span th:text = "${theProject}"></span> with <span th:text="${hoursForProject}"></span> hours</h5>
+</div>
+
+<div>
+    <a th:href="@{/angajat/allocationRegisterForThisUser}" class="btn" role="button" aria-pressed="true">Register New Allocation</a>
+</div> <br>
+
+<div style="padding-left: 5%; padding-right: 5%">
+    <h3>Your work, sir</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"> Project Id </th>
+            <th scope="col"> Project Name </th>
+            <th scope="col"> Date </th>
+            <th scope="col"> Hours </th>
+            <th scope="col"> Comments </th>
+            <th scope="col"> Edit </th>
+            <th scope="col"> Delete </th>
+
+        </tr>
+        </thead>
+        <tbody>
+<!--        <tr th:if="${allocations.isEmpty()}" scope="row">-->
+<!--            <td colspan="2"> No projects Available </td>-->
+<!--        </tr>-->
+        <tr th:each="allocation : ${allocations}" scope="row">
+            <td><span th:text="${allocation.getAllocationId().getProject().getId()}" scope="row"> Project Name</span></td>
+            <td><span th:text="${allocation.getAllocationId().getProject().getName()}" scope="row"> Project Name</span></td>
+            <td><span th:text="${allocation.getAllocationId().getDate()}" scope="row"> Project Date </span></td>
+            <td><span th:text="${allocation.getHours()}" scope="row"> Hours </span></td>
+            <td><span th:text="${allocation.getComments()}" scope="row"> Comments </span></td>
+            <td> <a th:href="@{'/angajat/edit/' + ${allocation.getAllocationId().getProject().getId()} + '/bar/' +
+                                                 ${allocation.getAllocationId().getDate()}}">Edit Alloc. </a>. </td>
+            <td> <a th:href="@{'/angajat/delete/' + ${allocation.getAllocationId().getProject().getId()} + '/bar/' +
+                                                ${allocation.getAllocationId().getDate()}}">Delete Alloc. </a>. </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<form th:action="@{/angajat_logout}"
+      method="POST">
+
+    <input type="submit" value="Logout" />
+
+</form>
+</body>
+</html>

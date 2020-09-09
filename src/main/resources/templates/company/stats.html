@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stats</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div style="width: 99%" ;>
+
+    <div style="width: 33%; float: left">
+        <h3>Hours per Project per User</h3><br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"> Project</th>
+                <th scope="col"> Angajat</th>
+                <th scope="col"> Hours</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--    <tr th:if="${projects.isEmpty()}" scope="row">-->
+            <!--        <td colspan="2"> No projects Available </td>-->
+            <!--    </tr>-->
+            <tr th:each="hoursPerProjectPerUser : ${listHoursPerProjectPerUser}" scope="row">
+                <td><span th:text="${hoursPerProjectPerUser.projectName}" scope="row"> Project </span></td>
+                <td><span th:text="${hoursPerProjectPerUser.angajatName}" scope="row"> Angajat </span></td>
+                <td><span th:text="${hoursPerProjectPerUser.hours}" scope="row"> Hours </span></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+
+    <div style="width: 33%; float: left;">
+        <h3>Hours per project</h3><br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"> Project Name</th>
+                <th scope="col"> Hours</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--    <tr th:if="${projects.isEmpty()}" scope="row">-->
+            <!--        <td colspan="2"> No projects Available </td>-->
+            <!--    </tr>-->
+            <tr th:each="hoursPerProject : ${listHoursPerProject}" scope="row">
+                <td><span th:text="${hoursPerProject.projectName}" scope="row"> Project Name </span></td>
+                <td><span th:text="${hoursPerProject.hours}" scope="row"> Hours </span></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+
+    <div style="width: 33%; float: left;">
+        <h3>Hours per User</h3><br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"> Angajat FullName</th>
+                <th scope="col"> Hours</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--    <tr th:if="${projects.isEmpty()}" scope="row">-->
+            <!--        <td colspan="2"> No projects Available </td>-->
+            <!--    </tr>-->
+            <tr th:each="hoursPerUser : ${listHoursPerUser}" scope="row">
+                <td><span th:text="${hoursPerUser.angajatName}" scope="row"> Project Name </span></td>
+                <td><span th:text="${hoursPerUser.hours}" scope="row"> Hours </span></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+
+
+</div>
+
+
+<div>
+    <a th:href="@{/companyHome}" class="btn" role="button" aria-pressed="true">Back to home page</a>
+</div>
+
+</body>
+</html>

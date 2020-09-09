@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Angajat</title>
+</head>
+<body>
+
+<p>Angajat login page</p>
+<form name="f" action="angajat_login" method="POST">
+    <table>
+        <tr>
+            <input th:type="text" name="username" placeholder="CNP">
+        </tr>
+        <tr>
+            <input type="password" name="password" placeholder="password" >
+        </tr>
+        <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

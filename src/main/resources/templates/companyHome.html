@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Company!</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>Welcome company!</h1>
+Company CUI: <span sec:authentication="name"></span>
+<br><br>
+Role: <span sec:authentication="principal.authorities"></span>
+<br><br>
+
+<div>
+    <a th:href="@{/company/allocationRegister}" class="btn" role="button" aria-pressed="true">Register New Allocation</a>
+</div> <br>
+<div>
+    <a th:href="@{/company/projectRegister}" class="btn" role="button" aria-pressed="true">Register New Project</a>
+</div> <br>
+
+<div>
+    <a th:href="@{/company/angajatRegister}" class="btn" role="button" aria-pressed="true">Register New Angajat</a>
+</div>
+
+<div>
+    <a th:href="@{/company/stats}" class="btn" role="button" aria-pressed="true">Get stats</a>
+</div>
+
+
+
+<div style="padding-left: 5%; padding-right: 5%">
+<h3>Company's projects</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col"> Project ID </th>
+        <th scope="col"> Company Name </th>
+        <th scope="col"> Project Name </th>
+    </tr>
+    </thead>
+    <tbody>
+<!--    <tr th:if="${projects.isEmpty()}" scope="row">-->
+<!--        <td colspan="2"> No projects Available </td>-->
+<!--    </tr>-->
+    <tr th:each="project : ${projects}" scope="row">
+        <td><span th:text="${project.id}" scope="row"> Project ID </span></td>
+        <td><span th:text="${project.company.name}" scope="row"> Company Name </span></td>
+        <td><span th:text="${project.name}" scope="row"> Project Name </span></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+    <h3>Company's angajati ( random order )</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"> Angajat ID </th>
+            <th scope="col"> First Name </th>
+            <th scope="col"> Last Name </th>
+            <th scope="col"> Email </th>
+            <th scope="col"> SendMail</th>
+            <th scope="col"> Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--    <tr th:if="${projects.isEmpty()}" scope="row">-->
+        <!--        <td colspan="2"> No projects Available </td>-->
+        <!--    </tr>-->
+        <tr th:each="angajat : ${angajati}" scope="row">
+            <td><span th:text="${angajat.id}" scope="row"> Angajat ID </span></td>
+            <td><span th:text="${angajat.firstname}" scope="row"> First Name </span></td>
+            <td><span th:text="${angajat.lastname}" scope="row"> Last Name </span></td>
+            <td><span th:text="${angajat.email}" scope="row"> Email </span></td>
+            <td> <a th:href="@{'/company/mail/' + ${angajat.id}}">Send Mail </a> </td>
+            <td> <a th:href="@{'/company/delete/' + ${angajat.id}}">Delete </a> </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<form th:action="@{/company_logout}"
+      method="POST">
+
+    <input type="submit" value="Logout" />
+
+</form>
+</body>
+</html>
